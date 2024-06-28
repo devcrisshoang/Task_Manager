@@ -13,9 +13,17 @@
         android:theme="@style/Theme.Task_Manager"
         tools:targetApi="31">
         <activity
+            android:name=".fragment.HomeFragment"
+            android:exported="false" />
+        <activity
+            android:name=".AddNewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_new"
+            android:theme="@style/Theme.Task_Manager" />
+        <activity
             android:name=".MainActivity"
-            android:windowTranslucentStatus="true"
-            android:exported="true">
+            android:exported="true"
+            android:windowTranslucentStatus="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,4 +31,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

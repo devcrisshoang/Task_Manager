@@ -1,0 +1,8 @@
+<!-- circle_shape.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#00000000" /> <!-- Màu nền, có thể là transparent -->
+    <size
+        android:width="50sp"
+        android:height="50sp" /> <!-- Kích thước của hình tròn -->
+</shape>
