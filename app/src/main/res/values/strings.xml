@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name"> </string>
+    <string name="nav_home">Home</string>
+    <string name="nav_feedback">Feedback</string>
+    <string name="nav_share">Share</string>
+    <string name="nav_upgrade">Upgrade</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>
