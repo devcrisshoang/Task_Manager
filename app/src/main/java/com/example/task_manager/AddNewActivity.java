@@ -1,11 +1,14 @@
 package com.example.task_manager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -16,8 +19,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddNewActivity extends AppCompatActivity {
     private ImageButton button_calender;
+    private SeekBar seekBar_important;
+    private EditText editText_write;
+    private SeekBar seekBar_urgent;
+    private Button button_add_task;
+    private Calendar calendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +47,65 @@ public class AddNewActivity extends AppCompatActivity {
                 showDateTimeDialog();
             }
         });
+        seekBar_important.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Được gọi khi giá trị của SeekBar thay đổi
+                // 'progress' là giá trị hiện tại của SeekBar
+                // 'fromUser' là true nếu sự thay đổi là do người dùng thực hiện
+
+                // Xử lý hành động khi giá trị thay đổi
+                // Ví dụ: cập nhật TextView để hiển thị giá trị SeekBar
+                Toast.makeText(AddNewActivity.this, "Progress: " + progress, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Được gọi khi người dùng bắt đầu chạm vào SeekBar
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Được gọi khi người dùng dừng chạm vào SeekBar
+            }
+        });
+        button_add_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendData();
+            }
+        });
     }
+
+    public void sendData() {
+        // Khai báo Intent để chuyển từ Activity này sang HomeFragment
+        Intent intent = new Intent(AddNewActivity.this, MainActivity.class);
+
+        // Đặt các giá trị cần truyền vào Intent
+        String taskName = editText_write.getText().toString();
+        int important = seekBar_important.getProgress();
+        int urgent = seekBar_urgent.getProgress();
+        Date selectedDate = calendar.getTime();
+
+        intent.putExtra("TASK_NAME", taskName);
+        intent.putExtra("IMPORTANT", important);
+        intent.putExtra("URGENT", urgent);
+        intent.putExtra("CALENDAR", selectedDate);
+
+        // Đặt cờ để chỉ định rằng intent sẽ mở HomeFragment
+        intent.putExtra("OPEN_FRAGMENT", "HOME_FRAGMENT");
+
+        // Khởi chạy Activity mới
+        startActivity(intent);
+    }
+
     public void setWidget(){
         button_calender = findViewById(R.id.button_calender);
+        seekBar_important = findViewById(R.id.seekBar_important);
+        editText_write = findViewById(R.id.editText_write);
+        seekBar_urgent = findViewById(R.id.seekBar_urgent);
+        button_add_task = findViewById(R.id.button_add_task);
+        calendar = Calendar.getInstance();
     }
 
     private void showDateTimeDialog() {
@@ -70,6 +138,7 @@ public class AddNewActivity extends AppCompatActivity {
 
                 int hour = timePicker.getHour();
                 int minute = timePicker.getMinute();
+                calendar.set(year, month, day, hour, minute);
 
                 String selectedDateTime = "Selected Date and Time: " + day + "/" + (month + 1) + "/" + year + " " + hour + ":" + minute;
                 Toast.makeText(AddNewActivity.this, selectedDateTime, Toast.LENGTH_LONG).show();

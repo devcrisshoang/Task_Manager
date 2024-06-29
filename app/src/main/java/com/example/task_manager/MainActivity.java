@@ -1,8 +1,10 @@
 package com.example.task_manager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -14,23 +16,32 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.task_manager.adapter.MyArrayAdapter;
 import com.example.task_manager.fragment.FeedbackFragment;
 import com.example.task_manager.fragment.HomeFragment;
 import com.example.task_manager.fragment.ShareFragment;
 import com.example.task_manager.fragment.UpgradeFragment;
+import com.example.task_manager.models.Tasks;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
-    private ListView listView;
-    //private TextView emptyView;
+
+
     private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_FEEDBACK = 1;
     private static final int FRAGMENT_SHARE = 2;
     private static final int FRAGMENT_UPGRADE = 3;
     private int currentFragment = FRAGMENT_HOME;
+    private String taskName;
+    private int important;
+    private int urgent;
+    private Date selectedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Hiển thị fragment Home ban đầu
         replaceFragment(new HomeFragment());
+        //Intent intent = new Intent(this, HomeActivity.class);
+        //startActivity(intent);
+        //finish();
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
 
         // Xử lý sự kiện click cho button
@@ -59,10 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.main);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation_view);
-        listView = findViewById(R.id.listView_Actived);
 
-        //emptyView = findViewById(R.id.empty_view);
-    }
+        }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -96,4 +108,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.content_frame,fragment);
         transaction.commit();
     }
+
 }

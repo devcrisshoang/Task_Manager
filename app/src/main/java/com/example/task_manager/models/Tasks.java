@@ -6,7 +6,7 @@ public class Tasks {
     private int id;
     private String task_name;
     private int task_important;
-    private int task_urgency;
+    private int task_urgent;
     private Date reminder;
     private boolean status_task;
 
@@ -14,7 +14,7 @@ public class Tasks {
         this.id = id;
         this.task_name = task_name;
         this.task_important = task_important;
-        this.task_urgency = task_urgency;
+        this.task_urgent = task_urgency;
         this.reminder = reminder;
         this.status_task = status_task;
     }
@@ -51,12 +51,12 @@ public class Tasks {
         this.task_important = task_important;
     }
 
-    public int getTask_urgency() {
-        return task_urgency;
+    public int getTask_urgent() {
+        return task_urgent;
     }
 
-    public void setTask_urgency(int task_urgency) {
-        this.task_urgency = task_urgency;
+    public void setTask_urgent(int task_urgent) {
+        this.task_urgent = task_urgent;
     }
 
     public Date getReminder() {

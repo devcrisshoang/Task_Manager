@@ -18,7 +18,7 @@
             android:layout_width="25sp"
             android:layout_height="25sp"
             android:layout_weight="1"
-            android:text="RadioButton" />
+            android:text="Task Name" />
 
         <ImageButton
             android:id="@+id/button_trash"
@@ -30,10 +30,12 @@
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/seekBar_important"
+        android:id="@+id/seekBar_important_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
+        android:thumb="@drawable/baseline_downhill_skiing_24"
+        android:progressDrawable="@color/red"
         android:padding="10sp" />
 
     <LinearLayout
@@ -63,10 +65,12 @@
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/seekBar_urgent"
+        android:id="@+id/seekBar_urgent_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
+        android:progressDrawable="@color/purple"
+        android:thumb="@drawable/baseline_directions_bike_24"
         android:padding="10sp" />
 
     <LinearLayout
