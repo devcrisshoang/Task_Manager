@@ -40,17 +40,13 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
         Tasks tasks = arrayList.get(position);
 
         RadioButton radioButton_task = convertView.findViewById(R.id.radioButton_task);
-        EditText editText_write = convertView.findViewById(R.id.editText_write);
         SeekBar seekBar_important = convertView.findViewById(R.id.seekBar_important_item);
         SeekBar seekBar_urgent = convertView.findViewById(R.id.seekBar_urgent_item);
 
         // Kiểm tra null
         if (radioButton_task != null) {
             radioButton_task.setChecked(false);
-        }
-
-        if (editText_write != null) {
-            editText_write.setText(tasks.getTask_name());
+            radioButton_task.setText(tasks.getTask_name());
         }
 
         if (seekBar_important != null) {

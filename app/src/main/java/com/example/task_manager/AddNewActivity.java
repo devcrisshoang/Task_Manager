@@ -13,6 +13,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -78,26 +79,23 @@ public class AddNewActivity extends AppCompatActivity {
     }
 
     public void sendData() {
-        // Khai báo Intent để chuyển từ Activity này sang HomeFragment
-        Intent intent = new Intent(AddNewActivity.this, MainActivity.class);
-
         // Đặt các giá trị cần truyền vào Intent
         String taskName = editText_write.getText().toString();
         int important = seekBar_important.getProgress();
         int urgent = seekBar_urgent.getProgress();
         Date selectedDate = calendar.getTime();
 
-        intent.putExtra("TASK_NAME", taskName);
-        intent.putExtra("IMPORTANT", important);
-        intent.putExtra("URGENT", urgent);
-        intent.putExtra("CALENDAR", selectedDate);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("TASK_NAME", taskName);
+        resultIntent.putExtra("IMPORTANT", important);
+        resultIntent.putExtra("URGENT", urgent);
+        resultIntent.putExtra("CALENDAR", selectedDate);
 
-        // Đặt cờ để chỉ định rằng intent sẽ mở HomeFragment
-        intent.putExtra("OPEN_FRAGMENT", "HOME_FRAGMENT");
-
-        // Khởi chạy Activity mới
-        startActivity(intent);
+        // Trả kết quả về HomeFragment
+        setResult(RESULT_OK, resultIntent);
+        finish(); // Kết thúc AddNewActivity
     }
+
 
     public void setWidget(){
         button_calender = findViewById(R.id.button_calender);
@@ -146,4 +144,6 @@ public class AddNewActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
