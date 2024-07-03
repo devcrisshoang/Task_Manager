@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public class HomeFragment extends Fragment {
     private ListView listView;
     private MyArrayAdapter adapter;
     private ArrayList<Tasks> arrayList;
+
     private int RESULT_OK = -1;
 
     @SuppressLint("MissingInflatedId")
@@ -53,7 +55,7 @@ public class HomeFragment extends Fragment {
 
 
         // Khởi tạo adapter và gán vào ListView
-        adapter = new MyArrayAdapter(getActivity(), R.layout.layout_item, arrayList);
+        adapter = new MyArrayAdapter(getActivity(), R.layout.activity_item, arrayList);
         listView.setAdapter(adapter);
 
         // Nhận Intent từ Activity gửi

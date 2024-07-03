@@ -13,8 +13,8 @@
         android:orientation="horizontal"
         android:padding="10sp">
 
-        <RadioButton
-            android:id="@+id/radioButton_task"
+        <CheckBox
+            android:id="@+id/checkBox_taskName"
             android:layout_width="25sp"
             android:layout_height="25sp"
             android:layout_weight="1"
