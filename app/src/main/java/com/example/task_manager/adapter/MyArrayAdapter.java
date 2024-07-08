@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.task_manager.R;
+import com.example.task_manager.database.TaskDbHelper;
 import com.example.task_manager.models.Tasks;
 
 import java.util.ArrayList;
@@ -30,12 +31,14 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
     Context context;
     int idLayout;
     ArrayList<Tasks> arrayList;
+    TaskDbHelper dbHelper;
 
     public MyArrayAdapter(Context context, int idLayout, ArrayList<Tasks> arrayList) {
         super(context, idLayout, arrayList);
         this.context = context;
         this.idLayout = idLayout;
         this.arrayList = arrayList;
+        this.dbHelper = new TaskDbHelper(context);
     }
 
     @NonNull
@@ -62,6 +65,7 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
                             .setMessage("Bạn có chắc chắn muốn xóa nhiệm vụ này không?")
                             .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTask(tasks.getId());
                                     arrayList.remove(position);
                                     notifyDataSetChanged();
                                     Toast.makeText(context, "Nhiệm vụ đã được xóa", Toast.LENGTH_SHORT).show();
@@ -82,7 +86,6 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
                 SpannableString spannableString = new SpannableString(tasks.getTask_name());
                 spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), 0);
                 checkBox_taskName.setText(spannableString);
-
             } else {
                 checkBox_taskName.setText(tasks.getTask_name());
             }
@@ -105,6 +108,7 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
                         seekBar_urgent.setProgress(tasks.getTask_urgent());
                         do_now.setVisibility(View.VISIBLE);
                     }
+                    dbHelper.updateTask(tasks);  // Update task status in database
                 }
             });
         }
@@ -123,6 +127,8 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    tasks.setTask_important(seekBar.getProgress());
+                    dbHelper.updateTask(tasks);  // Update important value in database
                 }
             });
         }
@@ -141,6 +147,8 @@ public class MyArrayAdapter extends ArrayAdapter<Tasks> {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    tasks.setTask_urgent(seekBar.getProgress());
+                    dbHelper.updateTask(tasks);  // Update urgent value in database
                 }
             });
         }

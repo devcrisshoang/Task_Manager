@@ -10,11 +10,19 @@ public class Tasks {
     private Date reminder;
     private boolean status_task;
 
-    public Tasks(int id, String task_name, int task_important, int task_urgency, Date reminder, boolean status_task) {
-        this.id = id;
+    public Tasks( String task_name, int task_important, int task_urgency, Date reminder, boolean status_task) {
         this.task_name = task_name;
         this.task_important = task_important;
         this.task_urgent = task_urgency;
+        this.reminder = reminder;
+        this.status_task = status_task;
+    }
+
+    public Tasks(int id, String task_name, int task_important, int task_urgent, Date reminder, boolean status_task) {
+        this.id = id;
+        this.task_name = task_name;
+        this.task_important = task_important;
+        this.task_urgent = task_urgent;
         this.reminder = reminder;
         this.status_task = status_task;
     }

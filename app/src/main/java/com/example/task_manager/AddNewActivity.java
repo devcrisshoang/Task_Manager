@@ -22,6 +22,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.task_manager.database.TaskDbHelper;
+import com.example.task_manager.models.Tasks;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,6 +38,7 @@ public class AddNewActivity extends AppCompatActivity {
     private TextView status_reminder;
     private boolean statusReminder = false;
     private Toolbar toolbar;
+    private TaskDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,14 +106,24 @@ public class AddNewActivity extends AppCompatActivity {
         int urgent = seekBar_urgent.getProgress();
         Date selectedDate = calendar.getTime();
 
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("TASK_NAME", taskName);
-        resultIntent.putExtra("IMPORTANT", important);
-        resultIntent.putExtra("URGENT", urgent);
-        resultIntent.putExtra("CALENDAR", selectedDate);
+        Tasks task = new Tasks( taskName, important, urgent, selectedDate, false);
+        long taskId = dbHelper.addTask(task);
+
+        if (taskId != -1) {
+            Toast.makeText(this, "Task added successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to add task", Toast.LENGTH_SHORT).show();
+        }
+        setResult(RESULT_OK);
+
+//        Intent resultIntent = new Intent();
+//        resultIntent.putExtra("TASK_NAME", taskName);
+//        resultIntent.putExtra("IMPORTANT", important);
+//        resultIntent.putExtra("URGENT", urgent);
+//        resultIntent.putExtra("CALENDAR", selectedDate);
 
         // Trả kết quả về HomeFragment
-        setResult(RESULT_OK, resultIntent);
+        //setResult(RESULT_OK, resultIntent);
         finish(); // Kết thúc AddNewActivity
     }
 
@@ -123,6 +137,7 @@ public class AddNewActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         status_reminder = findViewById(R.id.status_reminder);
         toolbar = findViewById(R.id.toolbarAddNewActivity);
+        dbHelper = new TaskDbHelper(this);
     }
 
     private void showDateTimeDialog() {
